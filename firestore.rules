@@ -1,0 +1,31 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function member() {
+      return request.auth != null && exists(/databases/$(database)/documents/appUsers/$(request.auth.uid))
+        && get(/databases/$(database)/documents/appUsers/$(request.auth.uid)).data.active == true;
+    }
+    function role() { return get(/databases/$(database)/documents/appUsers/$(request.auth.uid)).data.role; }
+    function admin() { return member() && role() == 'admin'; }
+    function validProfile() {
+      return request.resource.data.keys().hasOnly(['username','role','active','principal'])
+        && request.resource.data.username is string
+        && request.resource.data.username.matches('[a-zA-Z0-9._-]{3,40}')
+        && request.resource.data.role in ['admin','editor','viewer']
+        && request.resource.data.active is bool
+        && request.resource.data.principal == false;
+    }
+    match /appUsers/{uid} {
+      allow get: if request.auth != null && (request.auth.uid == uid || admin());
+      allow list: if admin();
+      allow create: if admin() && validProfile();
+      allow update: if admin() && request.auth.uid != uid && resource.data.principal == false
+        && validProfile() && request.resource.data.username == resource.data.username;
+      allow delete: if false;
+    }
+    match /personal/shared/{collection}/{id} {
+      allow read: if member() && collection in ['workers','records','meta'];
+      allow write: if member() && role() in ['admin','editor'] && collection in ['workers','records','meta'];
+    }
+  }
+}
