@@ -10,7 +10,7 @@ async function load(){
  check();
  for(let n=0;n<4;n++){
   const a=await getDocFromServer(ref('meta','state'));
-  const [w,r]=await Promise.all(['workers','records'].map(k=>getDocsFromServer(collection(db,'personal',uid,k))));
+  const [w,r]=await Promise.all(['workers','records'].map(k=>getDocsFromServer(collection(db,'personal','shared',k))));
   const z=await getDocFromServer(ref('meta','state'));
   if((a.data()?.revision||0)!==(z.data()?.revision||0))continue;
   revision=z.data()?.revision||0;baseline={workers:w.docs.map(d=>d.data()),records:r.docs.map(d=>d.data())};return structuredClone(baseline);
