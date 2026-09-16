@@ -711,7 +711,9 @@
 @media (prefers-reduced-motion:reduce) { .splash-logo-standecor { animation:none; } #standecorSplashScreen { transition:none; } }
 </style>
 <noscript><style>#standecorSplashScreen { display:none; }</style></noscript>
-<link rel="stylesheet" href="./accounts.css"></head>
+<style>.login-card{max-width:440px;margin:8vh auto;padding:30px!important}.login-card h1{font-size:25px;margin:24px 0 12px}.login-card p{color:#52718a}.login-brand{background:#14A4E3;color:white;border-radius:16px;display:inline-flex;flex-direction:column;padding:14px 18px;font-size:25px;line-height:1.05;letter-spacing:-1px}.login-brand span{font-size:12px;text-align:right;letter-spacing:0}.login-card label,#password-form label{display:block;margin:18px 0 7px}.login-card input,#password-form input{width:100%;text-transform:none}.login-card button,#password-form button{width:100%;margin-top:20px}.cloud-toolbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:14px}.cloud-toolbar #cloud-status{flex:1;font-size:13px}.cloud-session{font-size:13px;color:#08678e;font-weight:600}.accounts-grid{display:grid;grid-template-columns:1fr 1fr 150px auto;gap:12px;align-items:end;padding:16px;background:#eff9fd;border-radius:14px;margin:20px 0}.accounts-grid label{display:block;margin-bottom:6px}.accounts-grid input{width:100%;text-transform:none}.account-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;border:1px solid #d9e7ef;border-radius:12px;padding:12px;margin:10px 0}.account-row strong{flex:1}.account-row select{width:auto}.accounts-note,#accounts-dialog footer,#password-dialog footer{font-size:12px;color:#637d90;margin-top:20px}#accounts-dialog{width:min(850px,calc(100% - 24px));max-height:90dvh;overflow:auto}#password-dialog{width:min(420px,calc(100% - 24px))}.role-viewer .edit-record,.role-viewer .delete-record{display:none!important}[hidden]{display:none!important}@media(max-width:650px){.accounts-grid{grid-template-columns:1fr}.account-row{align-items:stretch}.account-row strong{flex-basis:100%}.login-card{margin:5vh 12px}.cloud-toolbar button{min-height:44px}}@media print{.cloud-toolbar,#cloud-login{display:none!important}}
+.header-actions{margin-left:auto;display:flex;align-items:center;gap:12px;flex-wrap:wrap}.header-actions .workers-open{margin:0;width:auto}.session-capsule{display:flex;align-items:center;gap:7px;padding:7px 9px;border-radius:999px;background:#e9f7fe;border:1px solid #bee8fa}.session-capsule .session-name{padding:3px 4px;background:transparent;color:#08678e;border:0;box-shadow:none;font-size:11px;font-weight:800;white-space:nowrap}.session-capsule .session-icon{width:34px;height:34px;padding:8px;border-radius:50%;background:#fff;border:1px solid #c8eafa;color:#0878a3;display:grid;place-items:center;box-shadow:none}.session-icon svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.sync-dot{width:6px;height:6px;flex:none;border-radius:50%;background:#e4ae32}.sync-dot[data-state=ok]{background:#25a67a}.sync-dot[data-state=error]{background:#d34b4b}.sr-status{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}@media(max-width:650px){header .header-actions{grid-column:1/-1;margin:0;justify-content:space-between;gap:8px;width:100%}.session-capsule{padding:5px 7px}.session-capsule .session-icon{width:40px;height:40px}}@media print{.session-capsule{display:none!important}}
+</style></head>
 <body><section id="cloud-login" class="card login-card">
  <div class="login-brand">STANDECOR<span>.com</span></div>
  <h1>Control del Personal</h1><p>Introduce tu usuario y contraseña.</p>
@@ -805,7 +807,7 @@
 </dialog>
 <input type="file" id="file-input" accept=".json" onchange="importarJSON(event)">
 
-<div class="container" id="cloud-app" hidden><div class="cloud-toolbar"><span id="cloud-user" class="cloud-session"></span><span id="cloud-status" role="status">Conectando…</span><button id="accounts-open" hidden class="compact secondary" onclick="openAccounts()">Usuarios</button><button class="compact secondary" onclick="document.getElementById('password-dialog').showModal()">Mi contraseña</button><button class="compact secondary" onclick="refreshCloud()">Actualizar</button><button class="compact secondary" onclick="if(!cloudBusy)personalCloud.logout()">Salir</button></div>
+<div class="container" id="cloud-app" hidden>
     <header>
         <div class="logo-wrapper">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 150" width="130" height="75" role="img" aria-label="STANDECOR.com">
@@ -817,7 +819,16 @@
             </svg>
         </div>
         <h1>Control del Personal</h1>
-        <button class="workers-open" onclick="abrirTrabajadores()"><svg class="ico" aria-hidden="true"><use href="#i-users"></use></svg> Trabajadores</button>
+        <div class="header-actions">
+ <button class="workers-open" onclick="abrirTrabajadores()"><svg class="ico" aria-hidden="true"><use href="#i-users"></use></svg> Trabajadores</button>
+ <div class="session-capsule" aria-label="Sesión de usuario">
+  <button id="cloud-user" class="session-name" title="Mi contraseña" aria-label="Mi cuenta y contraseña" onclick="document.getElementById('password-dialog').showModal()"></button>
+  <span id="sync-indicator" class="sync-dot" title="Conectando…" aria-label="Conectando…"></span><span id="cloud-status" class="sr-status" role="status">Conectando…</span>
+  <button id="accounts-open" class="session-icon" hidden onclick="openAccounts()" title="Gestionar usuarios" aria-label="Gestionar usuarios"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><path d="M20 8v6m3-3h-6"/></svg></button>
+  <button class="session-icon" onclick="if(!cloudBusy)personalCloud.logout()" title="Salir" aria-label="Salir"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4m7 14 5-5-5-5m5 5H9"/></svg></button>
+ </div>
+</div>
+
     </header>
 
     <div class="grid">
@@ -1914,6 +1925,15 @@
     }
 
     let cloudBusy=false,cloudReady=false,cloudStale=false;
+    let syncPending=false,syncTimer=null,cloudActive=false,cloudEpoch=0;
+    function editingCloud(){return ['editar-dialog','ficha-dialog','multiple-dialog'].some(id=>document.getElementById(id)?.open);}
+    function queueCloudSync(){
+        if(!cloudActive)return;
+        syncPending=true;
+        clearTimeout(syncTimer);
+        syncTimer=setTimeout(()=>{if(!cloudBusy&&!editingCloud()&&navigator.onLine)refreshCloud();},100);
+    }
+    document.addEventListener('close',()=>{if(syncPending)queueCloudSync();},true);
     const originalMessage=mostrarMsg;
     let deferredMessages=null;
     mostrarMsg=function(...args){if(deferredMessages&&args[1]!=='error')deferredMessages.push(args);else originalMessage(...args)};
@@ -1925,21 +1945,26 @@
         actualizarSelector();listarTrabajadores();renderApp();
     }
     async function refreshCloud(){
-        if(cloudBusy)return;
+        if(cloudBusy||editingCloud()){syncPending=true;return;}
+        syncPending=false;
+        const epoch=cloudEpoch;
         cloudBusy=true;
         document.getElementById('cloud-status').textContent='Actualizando…';
-        try{const state=await personalCloud.load();applyCloud(state);cloudReady=true;cloudStale=false;document.getElementById('cloud-status').textContent='Conectado · datos actualizados';}
-        catch(e){cloudReady=false;document.getElementById('cloud-status').textContent='No se pudo cargar. Pulsa Actualizar.';originalMessage(e.message,'error');}
-        finally{cloudBusy=false;}
+        try{const state=await personalCloud.load();if(epoch!==cloudEpoch)return;const draft=inputEmpleado.value;applyCloud(state);inputEmpleado.value=draft;cloudReady=true;cloudStale=false;document.getElementById('cloud-status').textContent='Sincronizado';}
+        catch(e){if(epoch!==cloudEpoch)return;cloudStale=true;document.getElementById('cloud-status').textContent='Sin conexión de datos · reintentando';clearTimeout(syncTimer);syncTimer=setTimeout(queueCloudSync,10000);}
+        finally{cloudBusy=false;if(syncPending&&cloudActive)queueCloudSync();}
     }
     window.cloudSession=async(allowed,error)=>{
         cloudReady=false;
+        cloudActive=allowed;cloudEpoch++;clearTimeout(syncTimer);syncPending=false;
         for(const d of document.querySelectorAll('dialog[open]'))d.close();
         document.getElementById('cloud-app').hidden=!allowed;document.getElementById('cloud-login').hidden=allowed;
         document.getElementById('cloud-login-error').textContent=error||'';
         if(allowed)await refreshCloud();else{applyCloud({workers:[],records:[]});salirSeleccionMultiple();}
     };
-    window.cloudChanged=()=>{if(cloudBusy)return;cloudStale=true;document.getElementById('cloud-status').textContent='Hay cambios en otro dispositivo · pulsa Actualizar';};
+    window.cloudChanged=queueCloudSync;
+    window.addEventListener('online',queueCloudSync);
+    document.addEventListener('visibilitychange',()=>{if(!document.hidden)queueCloudSync();});
     window.addEventListener('offline',()=>document.getElementById('cloud-status').textContent='Sin conexión · no se pueden guardar cambios');
     window.addEventListener('beforeunload',e=>{if(cloudBusy){e.preventDefault();e.returnValue='';}});
     function protegerCambio(fn){
@@ -1971,7 +1996,7 @@
                 if(editingOpen){registroEnEdicion=incidencias.find(i=>i.id===editingId)||null;if(!document.getElementById('editar-dialog').open)document.getElementById('editar-dialog').showModal();}
                 seleccionMultiple=selected;inputEmpleado.disabled=!!selected.size;inputTipo.disabled=!!selected.size;document.getElementById('employee-toggle').disabled=!!selected.size;actualizarResumenMultiple();
                 cloudStale=true;document.getElementById('cloud-status').textContent='No guardado · pulsa Actualizar antes de reintentar';originalMessage(e.message,'error');return false;
-            }finally{deferredMessages=null;cloudBusy=false;}
+            }finally{deferredMessages=null;cloudBusy=false;if(syncPending)queueCloudSync();}
         };
     }
 
@@ -1989,5 +2014,107 @@
         actualizarSelector(); renderApp();
     };
 </script>
-<script src="./accounts-ui.js"></script><script type="module" src="./cloud.js" onerror="document.getElementById('cloud-login-error').textContent='No se pudo conectar. Comprueba Internet y recarga la página.'"></script></body>
+<script>const byId=id=>document.getElementById(id);
+const roleNames={admin:'Administrador',editor:'Registro',viewer:'Solo consulta'};
+let accountProfile=null;
+function accountError(e){const c=e.code||'';if(/invalid-credential|wrong-password|user-not-found|invalid-login/.test(c))return 'Usuario o contraseña incorrectos.';if(c.includes('email-already-in-use'))return 'Ese nombre de usuario ya existe.';if(c.includes('too-many-requests'))return 'Demasiados intentos. Espera unos minutos.';if(c.includes('network'))return 'No hay conexión. Vuelve a intentarlo.';if(c.includes('permission-denied'))return 'No tienes permiso para esta operación.';return e.message||'No se pudo completar la operación.';}
+window.cloudRole=p=>{
+ accountProfile=p;document.body.classList.toggle('role-viewer',p?.role==='viewer');
+ byId('cloud-user').textContent=p?`${p.username} · ${{admin:'ADMIN',editor:'REGISTRO',viewer:'CONSULTA'}[p.role]||''}`:'';
+ byId('accounts-open').hidden=p?.role!=='admin';
+ if(p?.role!=='admin')byId('accounts-dialog').close();
+};
+new MutationObserver(()=>{const text=byId('cloud-status').textContent;const dot=byId('sync-indicator');if(!dot)return;dot.title=text;dot.setAttribute('aria-label',text);dot.dataset.state=/Sincronizado|Guardado|actualizados/.test(text)?'ok':/Sin conexión|No guardado|No se pudo/.test(text)?'error':'busy';}).observe(byId('cloud-status'),{childList:true,subtree:true,characterData:true});
+byId('login-form').addEventListener('submit',async e=>{e.preventDefault();const button=byId('login-submit');button.disabled=true;byId('cloud-login-error').textContent='Conectando…';try{await personalCloud.login(byId('login-user').value,byId('login-pass').value);byId('login-pass').value='';}catch(err){byId('cloud-login-error').textContent=accountError(err);}finally{button.disabled=false;}});
+window.openAccounts=async()=>{byId('accounts-dialog').showModal();await renderAccounts();};
+async function renderAccounts(){
+ const list=byId('accounts-list');list.replaceChildren();byId('accounts-error').textContent='Cargando usuarios…';
+ try{const users=await personalCloud.users();for(const u of users.sort((a,b)=>Number(b.principal)-Number(a.principal)||a.username.localeCompare(b.username))){
+  const row=document.createElement('div');row.className='account-row';const name=document.createElement('strong');name.textContent=u.username;row.append(name);
+  if(u.principal||u.id===accountProfile?.id){const label=document.createElement('span');label.textContent=u.principal?'Administrador principal':roleNames[u.role]+' · Tú';row.append(label);}
+  else{const roles=document.createElement('select');roles.setAttribute('aria-label','Permisos de '+u.username);for(const [value,text] of Object.entries(roleNames)){const o=document.createElement('option');o.value=value;o.textContent=text;roles.append(o);}roles.value=u.role;
+   const change=document.createElement('button');change.type='button';change.className='compact secondary';change.textContent='Guardar permisos';change.onclick=()=>update(u,roles.value,u.active,change);
+   const active=document.createElement('button');active.type='button';active.className='compact secondary';active.textContent=u.active?'Desactivar':'Activar';active.onclick=async()=>{if(await confirmarAccion(`${u.active?'Desactivar':'Activar'} el acceso de ${u.username}?`))await update(u,u.role,!u.active,active);};row.append(roles,change,active);
+  }const state=document.createElement('span');state.textContent=u.active?'Activo':'Sin acceso';row.append(state);list.append(row);
+ }byId('accounts-error').textContent='';}catch(e){byId('accounts-error').textContent=accountError(e);}
+}
+async function update(u,role,active,button){button.disabled=true;try{await personalCloud.updateAccount(u.id,role,active);await renderAccounts();}catch(e){byId('accounts-error').textContent=accountError(e);}finally{button.disabled=false;}}
+byId('account-create').addEventListener('submit',async e=>{e.preventDefault();const button=e.target.querySelector('button');button.disabled=true;byId('accounts-error').textContent='Creando usuario…';try{await personalCloud.createAccount(byId('account-name').value,byId('account-pass').value,byId('account-role').value);e.target.reset();await renderAccounts();byId('accounts-error').textContent='Usuario creado.';}catch(err){byId('accounts-error').textContent=accountError(err);}finally{button.disabled=false;}});
+byId('password-form').addEventListener('submit',async e=>{e.preventDefault();const button=e.target.querySelector('button');button.disabled=true;try{await personalCloud.changePassword(byId('password-old').value,byId('password-new').value);e.target.reset();byId('password-error').textContent='Contraseña cambiada.';}catch(err){byId('password-error').textContent=accountError(err);}finally{button.disabled=false;}});
+byId('password-dialog').addEventListener('close',()=>{byId('password-form').reset();byId('password-error').textContent='';});
+</script><script type="module">import {initializeApp,deleteApp} from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js';
+import {getAuth,signInWithEmailAndPassword,createUserWithEmailAndPassword,deleteUser,onAuthStateChanged,signOut,setPersistence,inMemoryPersistence,updatePassword,EmailAuthProvider,reauthenticateWithCredential} from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js';
+import {getFirestore,doc,collection,getDocsFromServer,getDocFromServer,setDoc,updateDoc,runTransaction,onSnapshot} from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js';
+const config={"apiKey":"AIzaSyAz277OXiNzpL1x6Ll3mYd5L_G-KYzgm7s","authDomain":"control-del-personal-dcc90.firebaseapp.com","projectId":"control-del-personal-dcc90","storageBucket":"control-del-personal-dcc90.firebasestorage.app","messagingSenderId":"225096099433","appId":"1:225096099433:web:67128f0a0fe03e5f0d24f8"};
+const app=initializeApp(config),auth=getAuth(app),db=getFirestore(app);
+let uid=null,revision=0,baseline={workers:[],records:[]},stop,stopProfile,profile=null,session=0;
+function ref(group,id){return doc(db,'personal','shared',group,id)}
+function check(){if(!uid)throw Error('Inicia sesión para continuar');if(!navigator.onLine)throw Error('Sin conexión. No se ha guardado el cambio.');}
+async function load(){
+ check();
+ const currentSession=session;
+ for(let n=0;n<4;n++){
+  const a=await getDocFromServer(ref('meta','state'));
+  const [w,r]=await Promise.all(['workers','records'].map(k=>getDocsFromServer(collection(db,'personal','shared',k))));
+  const z=await getDocFromServer(ref('meta','state'));
+  if((a.data()?.revision||0)!==(z.data()?.revision||0))continue;
+  if(currentSession!==session||!uid)throw Error('La sesión ha cambiado.');
+  revision=z.data()?.revision||0;baseline={workers:w.docs.map(d=>d.data()),records:r.docs.map(d=>d.data())};return structuredClone(baseline);
+ }
+ throw Error('Hay cambios simultáneos. Vuelve a actualizar.');
+}
+async function save(next){
+ check();if(!['admin','editor'].includes(profile?.role))throw Error('Tu usuario tiene permiso de solo consulta.');const changes=[];
+ for(const key of ['workers','records']){
+  const id=x=>key==='workers'?x.cloudId:String(x.id);
+  const before=new Map(baseline[key].map(x=>[id(x),x])),after=new Map(next[key].map(x=>[id(x),x]));
+  for(const [k,v] of after)if(JSON.stringify(v)!==JSON.stringify(before.get(k)))changes.push({key,k,v});
+  for(const k of before.keys())if(!after.has(k))changes.push({key,k,v:null});
+ }
+ if(!changes.length)return;
+ if(changes.length>450)throw Error('Esta operación supera 450 cambios. Divide la importación o el borrado antes de continuar.');
+ const expected=revision;
+ await runTransaction(db,async tx=>{
+  const current=await tx.get(ref('meta','state'));
+  if((current.data()?.revision||0)!==expected)throw Error('Hay cambios desde otro dispositivo. Pulsa Actualizar y vuelve a intentarlo.');
+  for(const c of changes){const target=ref(c.key,c.k);if(c.v===null)tx.delete(target);else tx.set(target,c.v);}
+  tx.set(ref('meta','state'),{revision:expected+1});
+ });
+ revision=expected+1;baseline=structuredClone(next);
+}
+function username(value){const n=String(value).trim();if(!/^[a-zA-Z0-9._-]{3,40}$/.test(n))throw Error('Usa entre 3 y 40 letras sin acentos, números, puntos, guiones o guiones bajos.');return n;}
+function email(value){return username(value).toLowerCase()+'@users.control-del-personal.invalid';}
+function password(value){if(value.length<10)throw Error('La contraseña debe tener al menos 10 caracteres.');return value;}
+function requireAdmin(){check();if(profile?.role!=='admin')throw Error('Solo un administrador puede gestionar usuarios.');}
+async function createAccount(name,pass,role){
+ requireAdmin();name=username(name);password(pass);if(!['admin','editor','viewer'].includes(role))throw Error('Permiso no válido.');
+ const secondary=initializeApp(config,'new-user-'+crypto.randomUUID()),secondaryAuth=getAuth(secondary);let created;
+ try{
+  await setPersistence(secondaryAuth,inMemoryPersistence);
+  created=(await createUserWithEmailAndPassword(secondaryAuth,email(name),pass)).user;
+  await setDoc(doc(db,'appUsers',created.uid),{username:name,role,active:true,principal:false});
+ }catch(e){if(created){try{await deleteUser(created)}catch{throw Error('No se completó el alta. Contacta con el administrador antes de repetir ese nombre.');}}throw e;}
+ finally{await signOut(secondaryAuth).catch(()=>{});await deleteApp(secondary);}
+}
+window.personalCloud={load,save,
+ login:(name,pass)=>signInWithEmailAndPassword(auth,email(name),pass),logout:()=>signOut(auth),
+ canWrite:()=>['admin','editor'].includes(profile?.role),
+ users:async()=>{requireAdmin();return (await getDocsFromServer(collection(db,'appUsers'))).docs.map(d=>({id:d.id,...d.data()}));},
+ createAccount,
+ updateAccount:async(id,role,active)=>{requireAdmin();if(id===uid)throw Error('No puedes cambiar tus propios permisos.');if(!['admin','editor','viewer'].includes(role))throw Error('Permiso no válido.');await updateDoc(doc(db,'appUsers',id),{role,active});},
+ changePassword:async(old,next)=>{check();password(next);await reauthenticateWithCredential(auth.currentUser,EmailAuthProvider.credential(auth.currentUser.email,old));await updatePassword(auth.currentUser,next);}
+};
+document.getElementById('login-submit').disabled=false;
+document.getElementById('cloud-login-error').textContent='';
+onAuthStateChanged(auth,async user=>{
+ const current=++session;stop?.();stopProfile?.();uid=null;profile=null;window.cloudRole?.(null);
+ if(!user){window.cloudSession?.(false);return;}
+ stopProfile=onSnapshot(doc(db,'appUsers',user.uid),async snap=>{
+  if(current!==session)return;
+  const p=snap.data();if(!p?.active){uid=null;profile=null;stop?.();window.cloudRole?.(null);window.cloudSession?.(false,'Usuario sin acceso. Contacta con el administrador.');return;}
+  const first=!uid;uid=user.uid;profile={...p,id:uid};window.cloudRole?.(profile);
+  if(first){await window.cloudSession?.(true);if(current!==session||!uid)return;stop=onSnapshot(ref('meta','state'),s=>{if((s.data()?.revision||0)!==revision)window.cloudChanged?.();},()=>window.cloudChanged?.());}
+ },()=>{uid=null;profile=null;stop?.();window.cloudRole?.(null);window.cloudSession?.(false,'No se pudo comprobar el acceso. Vuelve a entrar.');});
+});
+</script></body>
 </html>
