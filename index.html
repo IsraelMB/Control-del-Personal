@@ -714,6 +714,15 @@
 <style>.login-card{max-width:440px;margin:8vh auto;padding:30px!important}.login-card h1{font-size:25px;margin:24px 0 12px}.login-card p{color:#52718a}.login-brand{background:#14A4E3;color:white;border-radius:16px;display:inline-flex;flex-direction:column;padding:14px 18px;font-size:25px;line-height:1.05;letter-spacing:-1px}.login-brand span{font-size:12px;text-align:right;letter-spacing:0}.login-card label,#password-form label{display:block;margin:18px 0 7px}.login-card input,#password-form input{width:100%;text-transform:none}.login-card button,#password-form button{width:100%;margin-top:20px}.cloud-toolbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:14px}.cloud-toolbar #cloud-status{flex:1;font-size:13px}.cloud-session{font-size:13px;color:#08678e;font-weight:600}.accounts-grid{display:grid;grid-template-columns:1fr 1fr 150px auto;gap:12px;align-items:end;padding:16px;background:#eff9fd;border-radius:14px;margin:20px 0}.accounts-grid label{display:block;margin-bottom:6px}.accounts-grid input{width:100%;text-transform:none}.account-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;border:1px solid #d9e7ef;border-radius:12px;padding:12px;margin:10px 0}.account-row strong{flex:1}.account-row select{width:auto}.accounts-note,#accounts-dialog footer,#password-dialog footer{font-size:12px;color:#637d90;margin-top:20px}#accounts-dialog{width:min(850px,calc(100% - 24px));max-height:90dvh;overflow:auto}#password-dialog{width:min(420px,calc(100% - 24px))}.role-viewer .edit-record,.role-viewer .delete-record{display:none!important}[hidden]{display:none!important}@media(max-width:650px){.accounts-grid{grid-template-columns:1fr}.account-row{align-items:stretch}.account-row strong{flex-basis:100%}.login-card{margin:5vh 12px}.cloud-toolbar button{min-height:44px}}@media print{.cloud-toolbar,#cloud-login{display:none!important}}
 .header-actions{margin-left:auto;display:flex;align-items:center;gap:12px;flex-wrap:wrap}.header-actions .workers-open{margin:0;width:auto}.session-capsule{display:flex;align-items:center;gap:7px;padding:7px 9px;border-radius:999px;background:#e9f7fe;border:1px solid #bee8fa}.session-capsule .session-name{padding:3px 4px;background:transparent;color:#08678e;border:0;box-shadow:none;font-size:11px;font-weight:800;white-space:nowrap}.session-capsule .session-icon{width:34px;height:34px;padding:8px;border-radius:50%;background:#fff;border:1px solid #c8eafa;color:#0878a3;display:grid;place-items:center;box-shadow:none}.session-icon svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.sync-dot{width:6px;height:6px;flex:none;border-radius:50%;background:#e4ae32}.sync-dot[data-state=ok]{background:#25a67a}.sync-dot[data-state=error]{background:#d34b4b}.sr-status{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}@media(max-width:650px){header .header-actions{grid-column:1/-1;margin:0;justify-content:space-between;gap:8px;width:100%}.session-capsule{padding:5px 7px}.session-capsule .session-icon{width:40px;height:40px}}@media print{.session-capsule{display:none!important}}
 #cloud-login{position:fixed;inset:0;z-index:9990;background:linear-gradient(135deg,#0B5F86,#14A4E3);display:flex;align-items:center;justify-content:center;padding:20px;overflow:auto}#cloud-login .login-card{width:min(430px,94vw);max-width:430px;margin:auto;background:#fff;border-radius:24px;padding:30px!important;box-shadow:0 24px 70px #0000004d;text-align:center;box-sizing:border-box}#cloud-login .login-brand{display:block;background:none;border-radius:0;padding:0;color:#0B5F86;font-size:32px;font-weight:900;letter-spacing:1px;margin-bottom:6px;line-height:1.2}.login-subtitle{font-size:12px;font-weight:900;color:#64748b;letter-spacing:1px;margin-bottom:22px}#cloud-login input{width:100%;box-sizing:border-box;margin:0 0 10px;background:#e8f0fd;border:1px solid #d5e1ef;border-radius:12px;min-height:36px;padding:8px 10px}#cloud-login button{margin:0;min-height:40px;border-radius:14px;background:linear-gradient(135deg,#14A4E3,#0B5F86);box-shadow:0 5px 12px #14a4e32b;font-weight:800}#cloud-login-error{min-height:18px;color:#b42318!important;font-size:12px;margin:8px 0 0}.login-credit{font-size:11px;color:#64748b;margin-top:18px}#cloud-login .sr-status{margin:0}body:has(#cloud-login:not([hidden])){overflow:hidden}
+/* Cabecera: misma familia visual que Trabajadores. */
+.header-actions .workers-open,.header-actions .session-capsule{min-height:44px;box-sizing:border-box;border-radius:12px;background:var(--primary);color:#fff;border:0;box-shadow:0 3px 10px rgba(20,164,227,.16)}
+.header-actions .session-capsule{padding:5px 9px;gap:7px}
+.session-capsule .session-name{color:#fff;font-size:12px}
+.session-capsule .session-name:hover{background:rgba(255,255,255,.12);color:#fff}
+.session-capsule .session-icon{border:0;color:var(--primary);background:#fff}
+.session-capsule .session-icon:hover{background:var(--primary-soft)}
+.session-capsule .sync-dot{outline:1px solid rgba(255,255,255,.8)}
+@media(max-width:650px){.header-actions .workers-open,.header-actions .session-capsule{min-height:50px}}
 </style></head>
 <body><section id="cloud-login" aria-label="Acceso a Control del Personal"><div class="login-card">
  <div class="login-brand">STANDECOR</div>
@@ -730,17 +739,17 @@
  <p>Los usuarios comparten el historial de Personal. Puedes suspender el acceso con «Desactivar».</p>
  <form id="account-create" class="accounts-grid">
   <div><label for="account-name">Usuario</label><input id="account-name" required minlength="3" maxlength="40" pattern="[a-zA-Z0-9._\-]{3,40}" autocomplete="off" placeholder="Nombre de acceso"></div>
-  <div><label for="account-pass">Contraseña inicial</label><input id="account-pass" type="password" required minlength="10" autocomplete="new-password" placeholder="Mínimo 10 caracteres"></div>
-  <div><label for="account-role">Permisos</label><select id="account-role"><option value="viewer">Solo consulta</option><option value="editor">Registro</option><option value="admin">Administrador</option></select></div>
+  <div><label for="account-pass">Contraseña inicial</label><input id="account-pass" type="password" required minlength="6" autocomplete="new-password" placeholder="Mínimo 6 caracteres"></div>
+  <div><label for="account-role">Permisos</label><select id="account-role"><option value="viewer">Visor</option><option value="admin">Administrador</option></select></div>
   <button type="submit">Crear usuario</button>
  </form>
  <p id="accounts-error" role="status"></p><div id="accounts-list"></div>
- <p class="accounts-note">Cada usuario puede cambiar su propia contraseña. Las contraseñas no se muestran ni se guardan en el historial.</p>
+ <p class="accounts-note">Solo IsraelM gestiona los usuarios. Si olvidas tu contraseña, contacta con él. Las contraseñas actuales no se pueden consultar.</p>
  <footer>Todos los derechos a IsraelM</footer>
 </dialog>
 <dialog id="password-dialog" aria-labelledby="password-title">
  <div class="dialog-heading"><h2 id="password-title">Cambiar contraseña</h2><button type="button" class="compact secondary" onclick="this.closest('dialog').close()">Cerrar</button></div>
- <form id="password-form"><label for="password-old">Contraseña actual</label><input id="password-old" type="password" autocomplete="current-password" required><label for="password-new">Nueva contraseña</label><input id="password-new" type="password" autocomplete="new-password" required minlength="10"><button type="submit">Guardar contraseña</button></form><p id="password-error" role="status"></p>
+ <form id="password-form"><label for="password-old">Contraseña actual</label><input id="password-old" type="password" autocomplete="current-password" required><label for="password-new">Nueva contraseña</label><input id="password-new" type="password" autocomplete="new-password" required minlength="6"><button type="submit">Guardar contraseña</button></form><p id="password-error" role="status"></p>
  <footer>Todos los derechos a IsraelM</footer>
 </dialog>
 
@@ -824,7 +833,7 @@
         <div class="header-actions">
  <button class="workers-open" onclick="abrirTrabajadores()"><svg class="ico" aria-hidden="true"><use href="#i-users"></use></svg> Trabajadores</button>
  <div class="session-capsule" aria-label="Sesión de usuario">
-  <button id="cloud-user" class="session-name" title="Mi contraseña" aria-label="Mi cuenta y contraseña" onclick="document.getElementById('password-dialog').showModal()"></button>
+  <button id="cloud-user" class="session-name" title="Mi contraseña" aria-label="Mi cuenta y contraseña" onclick="openOwnPassword()"></button>
   <span id="sync-indicator" class="sync-dot" title="Conectando…" aria-label="Conectando…"></span><span id="cloud-status" class="sr-status" role="status">Conectando…</span>
   <button id="accounts-open" class="session-icon" hidden onclick="openAccounts()" title="Gestionar usuarios" aria-label="Gestionar usuarios"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><path d="M20 8v6m3-3h-6"/></svg></button>
   <button class="session-icon" onclick="if(!cloudBusy)personalCloud.logout()" title="Salir" aria-label="Salir"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4m7 14 5-5-5-5m5 5H9"/></svg></button>
@@ -2017,36 +2026,40 @@
     };
 </script>
 <script>const byId=id=>document.getElementById(id);
-const roleNames={admin:'Administrador',editor:'Registro',viewer:'Solo consulta'};
+const roleNames={admin:'Administrador',viewer:'Visor'};
 let accountProfile=null;
+const isOwner=p=>p?.id==='uWGpKRmdHccHweWoFTbZmcxbEoq2' && p?.principal===true && p?.role==='admin';
+window.openOwnPassword=()=>{if(isOwner(accountProfile))byId('password-dialog').showModal();};
 function accountError(e){const c=e.code||'';if(/invalid-credential|wrong-password|user-not-found|invalid-login/.test(c))return 'Usuario o contraseña incorrectos.';if(c.includes('email-already-in-use'))return 'Ese nombre de usuario ya existe.';if(c.includes('too-many-requests'))return 'Demasiados intentos. Espera unos minutos.';if(c.includes('network'))return 'No hay conexión. Vuelve a intentarlo.';if(c.includes('permission-denied'))return 'No tienes permiso para esta operación.';return e.message||'No se pudo completar la operación.';}
 window.cloudRole=p=>{
  accountProfile=p;document.body.classList.toggle('role-viewer',p?.role==='viewer');
- byId('cloud-user').textContent=p?`${p.username} · ${{admin:'ADMIN',editor:'REGISTRO',viewer:'CONSULTA'}[p.role]||''}`:'';
- byId('accounts-open').hidden=p?.role!=='admin';
- if(p?.role!=='admin')byId('accounts-dialog').close();
+ byId('cloud-user').textContent=p?`${p.username} · ${{admin:'ADMIN',editor:'ADMIN',viewer:'VISOR'}[p.role]||''}`:'';
+ byId('accounts-open').hidden=!isOwner(p);
+ byId('cloud-user').disabled=!isOwner(p);
+ byId('cloud-user').title=isOwner(p)?'Mi contraseña':'Contraseñas: contacta con IsraelM';
+ if(!isOwner(p)){byId('accounts-dialog').close();byId('password-dialog').close();}
 };
 new MutationObserver(()=>{const text=byId('cloud-status').textContent;const dot=byId('sync-indicator');if(!dot)return;dot.title=text;dot.setAttribute('aria-label',text);dot.dataset.state=/Sincronizado|Guardado|actualizados/.test(text)?'ok':/Sin conexión|No guardado|No se pudo/.test(text)?'error':'busy';}).observe(byId('cloud-status'),{childList:true,subtree:true,characterData:true});
 byId('login-form').addEventListener('submit',async e=>{e.preventDefault();const button=byId('login-submit');button.disabled=true;byId('cloud-login-error').textContent='Conectando…';try{await personalCloud.login(byId('login-user').value,byId('login-pass').value);byId('login-pass').value='';}catch(err){byId('cloud-login-error').textContent=accountError(err);}finally{button.disabled=false;}});
-window.openAccounts=async()=>{byId('accounts-dialog').showModal();await renderAccounts();};
+window.openAccounts=async()=>{if(!isOwner(accountProfile))return;byId('accounts-dialog').showModal();await renderAccounts();};
 async function renderAccounts(){
  const list=byId('accounts-list');list.replaceChildren();byId('accounts-error').textContent='Cargando usuarios…';
  try{const users=await personalCloud.users();for(const u of users.sort((a,b)=>Number(b.principal)-Number(a.principal)||a.username.localeCompare(b.username))){
   const row=document.createElement('div');row.className='account-row';const name=document.createElement('strong');name.textContent=u.username;row.append(name);
   if(u.principal||u.id===accountProfile?.id){const label=document.createElement('span');label.textContent=u.principal?'Administrador principal':roleNames[u.role]+' · Tú';row.append(label);}
-  else{const roles=document.createElement('select');roles.setAttribute('aria-label','Permisos de '+u.username);for(const [value,text] of Object.entries(roleNames)){const o=document.createElement('option');o.value=value;o.textContent=text;roles.append(o);}roles.value=u.role;
+  else{const roles=document.createElement('select');roles.setAttribute('aria-label','Permisos de '+u.username);for(const [value,text] of Object.entries(roleNames)){const o=document.createElement('option');o.value=value;o.textContent=text;roles.append(o);}roles.value=u.role==='editor'?'admin':u.role;
    const change=document.createElement('button');change.type='button';change.className='compact secondary';change.textContent='Guardar permisos';change.onclick=()=>update(u,roles.value,u.active,change);
-   const active=document.createElement('button');active.type='button';active.className='compact secondary';active.textContent=u.active?'Desactivar':'Activar';active.onclick=async()=>{if(await confirmarAccion(`${u.active?'Desactivar':'Activar'} el acceso de ${u.username}?`))await update(u,u.role,!u.active,active);};row.append(roles,change,active);
+   const active=document.createElement('button');active.type='button';active.className='compact secondary';active.textContent=u.active?'Desactivar':'Activar';active.onclick=async()=>{if(await confirmarAccion(`${u.active?'Desactivar':'Activar'} el acceso de ${u.username}?`))await update(u,u.role,!u.active,active);};const remove=document.createElement('button');remove.type='button';remove.className='compact secondary';remove.textContent='Eliminar usuario';remove.setAttribute('aria-label','Eliminar usuario '+u.username);remove.onclick=async()=>{if(!isOwner(accountProfile))return;if(!await confirmarAccion('¿Eliminar el acceso de '+u.username+'? Desaparecerá de la lista y no podrá entrar. Los registros de personal se conservarán. Su nombre de acceso seguirá reservado en Firebase.'))return;remove.disabled=true;try{await personalCloud.deleteAccount(u.id);await renderAccounts();}catch(e){byId('accounts-error').textContent=accountError(e);remove.disabled=false;}};row.append(roles,change,active,remove);
   }const state=document.createElement('span');state.textContent=u.active?'Activo':'Sin acceso';row.append(state);list.append(row);
  }byId('accounts-error').textContent='';}catch(e){byId('accounts-error').textContent=accountError(e);}
 }
-async function update(u,role,active,button){button.disabled=true;try{await personalCloud.updateAccount(u.id,role,active);await renderAccounts();}catch(e){byId('accounts-error').textContent=accountError(e);}finally{button.disabled=false;}}
+async function update(u,role,active,button){button.disabled=true;try{await personalCloud.updateAccount(u.id,role==='editor'?'admin':role,active);await renderAccounts();}catch(e){byId('accounts-error').textContent=accountError(e);}finally{button.disabled=false;}}
 byId('account-create').addEventListener('submit',async e=>{e.preventDefault();const button=e.target.querySelector('button');button.disabled=true;byId('accounts-error').textContent='Creando usuario…';try{await personalCloud.createAccount(byId('account-name').value,byId('account-pass').value,byId('account-role').value);e.target.reset();await renderAccounts();byId('accounts-error').textContent='Usuario creado.';}catch(err){byId('accounts-error').textContent=accountError(err);}finally{button.disabled=false;}});
 byId('password-form').addEventListener('submit',async e=>{e.preventDefault();const button=e.target.querySelector('button');button.disabled=true;try{await personalCloud.changePassword(byId('password-old').value,byId('password-new').value);e.target.reset();byId('password-error').textContent='Contraseña cambiada.';}catch(err){byId('password-error').textContent=accountError(err);}finally{button.disabled=false;}});
 byId('password-dialog').addEventListener('close',()=>{byId('password-form').reset();byId('password-error').textContent='';});
 </script><script type="module">import {initializeApp,deleteApp} from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js';
 import {getAuth,signInWithEmailAndPassword,createUserWithEmailAndPassword,deleteUser,onAuthStateChanged,signOut,setPersistence,inMemoryPersistence,updatePassword,EmailAuthProvider,reauthenticateWithCredential} from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js';
-import {getFirestore,doc,collection,getDocsFromServer,getDocFromServer,setDoc,updateDoc,runTransaction,onSnapshot} from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js';
+import {getFirestore,doc,collection,getDocsFromServer,getDocFromServer,setDoc,updateDoc,deleteDoc,runTransaction,onSnapshot} from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js';
 const config={"apiKey":"AIzaSyAz277OXiNzpL1x6Ll3mYd5L_G-KYzgm7s","authDomain":"control-del-personal-dcc90.firebaseapp.com","projectId":"control-del-personal-dcc90","storageBucket":"control-del-personal-dcc90.firebasestorage.app","messagingSenderId":"225096099433","appId":"1:225096099433:web:67128f0a0fe03e5f0d24f8"};
 const app=initializeApp(config),auth=getAuth(app),db=getFirestore(app);
 let uid=null,revision=0,baseline={workers:[],records:[]},stop,stopProfile,profile=null,session=0;
@@ -2086,10 +2099,10 @@ async function save(next){
 }
 function username(value){const n=String(value).trim();if(!/^[a-zA-Z0-9._-]{3,40}$/.test(n))throw Error('Usa entre 3 y 40 letras sin acentos, números, puntos, guiones o guiones bajos.');return n;}
 function email(value){return username(value).toLowerCase()+'@users.control-del-personal.invalid';}
-function password(value){if(value.length<10)throw Error('La contraseña debe tener al menos 10 caracteres.');return value;}
-function requireAdmin(){check();if(profile?.role!=='admin')throw Error('Solo un administrador puede gestionar usuarios.');}
+function password(value){if(value.length<6)throw Error('La contraseña debe tener al menos 6 caracteres.');return value;}
+function requireAdmin(){check();if(uid!=='uWGpKRmdHccHweWoFTbZmcxbEoq2'||profile?.principal!==true||profile?.role!=='admin')throw Error('Solo IsraelM puede gestionar usuarios.');}
 async function createAccount(name,pass,role){
- requireAdmin();name=username(name);password(pass);if(!['admin','editor','viewer'].includes(role))throw Error('Permiso no válido.');
+ requireAdmin();name=username(name);password(pass);if(!['admin','viewer'].includes(role))throw Error('Permiso no válido.');
  const secondary=initializeApp(config,'new-user-'+crypto.randomUUID()),secondaryAuth=getAuth(secondary);let created;
  try{
   await setPersistence(secondaryAuth,inMemoryPersistence);
@@ -2103,8 +2116,9 @@ window.personalCloud={load,save,
  canWrite:()=>['admin','editor'].includes(profile?.role),
  users:async()=>{requireAdmin();return (await getDocsFromServer(collection(db,'appUsers'))).docs.map(d=>({id:d.id,...d.data()}));},
  createAccount,
- updateAccount:async(id,role,active)=>{requireAdmin();if(id===uid)throw Error('No puedes cambiar tus propios permisos.');if(!['admin','editor','viewer'].includes(role))throw Error('Permiso no válido.');await updateDoc(doc(db,'appUsers',id),{role,active});},
- changePassword:async(old,next)=>{check();password(next);await reauthenticateWithCredential(auth.currentUser,EmailAuthProvider.credential(auth.currentUser.email,old));await updatePassword(auth.currentUser,next);}
+ deleteAccount:async(id)=>{requireAdmin();if(id===uid)throw Error('No puedes eliminar la cuenta de IsraelM.');const target=doc(db,'appUsers',id);const snapshot=await getDocFromServer(target);if(!snapshot.exists())return;if(snapshot.data().principal)throw Error('No puedes eliminar al administrador principal.');await deleteDoc(target);},
+ updateAccount:async(id,role,active)=>{requireAdmin();if(id===uid)throw Error('No puedes cambiar tus propios permisos.');if(!['admin','viewer'].includes(role))throw Error('Permiso no válido.');await updateDoc(doc(db,'appUsers',id),{role,active});},
+ changePassword:async(old,next)=>{requireAdmin();password(next);await reauthenticateWithCredential(auth.currentUser,EmailAuthProvider.credential(auth.currentUser.email,old));await updatePassword(auth.currentUser,next);}
 };
 document.getElementById('login-submit').disabled=false;
 document.getElementById('cloud-login-error').textContent='';
